@@ -18,7 +18,7 @@ function setupCanvas() {
     canvas.width = tileSize * (numTiles + uiWidth);
     canvas.height = tileSize * numTiles;
     canvas.style.width = canvas.width + 'px';
-    canvas.style.height = canvas.width + 'px';
+    canvas.style.height = canvas.height + 'px';
 
     ctx.imageSmoothingEnabled = false;
 }
@@ -42,13 +42,15 @@ function draw() {
     // clears old char position
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    for (let i = 0; i < numTiles; i++) {
+        for (let j = 0; j < numTiles; j++) {
+            getTile(i, j).draw();
+        }
+    }
+
     // draws character square
     //ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
     drawSprite(0, x, y);
 
 }
-
-setupCanvas();
-
-setInterval(draw, 15);
 
