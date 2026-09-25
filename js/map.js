@@ -1,10 +1,12 @@
 function generateLevel() {
-    generateTiles();
+    util.tryTo('generate_map', function () {
+        return generateTiles() == randomPassableTile().getConnectedTiles().length;
+    });
 }
 
 function generateTiles() {
+    let passableTiles = 0;
     tiles = [];
-    console.log(tiles)
     for (let i = 0; i < numTiles; i++) {
         tiles[i] = [];
         for (let j = 0; j < numTiles; j++) {
@@ -12,9 +14,11 @@ function generateTiles() {
                 tiles[i][j] = new Wall(i, j);
             } else {
                 tiles[i][j] = new Floor(i, j);
+                passableTiles++;
             }
         }
     }
+    return passableTiles;
 }
 
 function inBounds(x, y) {
@@ -28,3 +32,16 @@ function getTile(x, y) {
         return new Wall(x, y);
     }
 }
+
+function randomPassableTile() {
+    let tile;
+    util.tryTo('get random passable tile', function () {
+        let x = util.randomRange(0, numTiles - 1);
+        let y = util.randomRange(0, numTiles - 1);
+        tile = getTile(x, y);
+        return tile.passable && !tile.monster;
+
+    });
+    return tile;
+}
+

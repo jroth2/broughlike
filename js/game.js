@@ -1,3 +1,4 @@
+
 const htmltag = document.querySelector("html");
 
 htmltag.addEventListener('keyup', function (e) {
