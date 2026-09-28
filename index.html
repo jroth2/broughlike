@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
 </head>
 
 <body>
@@ -18,31 +19,40 @@
     <script src="js/spell.js"></script>
     <script>
         tileSize = 64;
-        numTiles = 12;
+        numTiles = 11;
         uiWidth = 4;
         level = 1;
 
-        htmltag.addEventListener('keyup', function (e) {
-            if (e.key == "w") player.tryMove(0, -1);
-            if (e.key == "s") player.tryMove(0, 1);
-            if (e.key == "a") player.tryMove(-1, 0);
-            if (e.key == "d") player.tryMove(1, 0);
-        });
-
         spritesheet = new Image()
         spritesheet.src = 'spritesheet.png'
+
+        spritesheet.onload = showTitle;
+        gameState = 'loading';
+        startingHp = 3;
+        numLevels = 6;
+
+        htmltag.addEventListener('keyup', function (e) {
+            console.log(e.key)
+            if (gameState == "title") {
+                startGame();
+            } else if (gameState == "dead") {
+                showTitle();
+            } else if (gameState == "running") {
+                if (e.key.toLowerCase() == "w") player.tryMove(0, -1);
+                if (e.key.toLowerCase() == "s") player.tryMove(0, 1);
+                if (e.key.toLowerCase() == "a") player.tryMove(-1, 0);
+                if (e.key.toLowerCase() == "d") player.tryMove(1, 0);
+            }
+        });
+
+
 
 
 
 
         setInterval(draw, 15);
         setupCanvas();
-        generateLevel();
 
-
-
-
-        player = new Player(randomPassableTile());
 
 
     </script>
