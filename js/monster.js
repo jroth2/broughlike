@@ -3,10 +3,21 @@ class Monster {
         this.move(tile);
         this.sprite = sprite;
         this.hp = hp;
+        this.maxHp = 6;
     }
 
     update() {
+        if (this.stunned) {
+            this.stunned = false;
+            return;
+        }
+
         this.doStuff();
+
+    }
+
+    heal(damage) {
+        this.hp = Math.min(this.maxHp, this.hp + damage)
     }
 
     doStuff() {
@@ -40,11 +51,29 @@ class Monster {
         if (newTile.passable) {
             if (!newTile.monster) {
                 this.move(newTile);
+            } else {
+                if (this.isPlayer != newTile.monster.isPlayer) {
+                    this.attackedThisTurn = true;
+                    newTile.monster.stunned = true;
+                    newTile.monster.hit(1);
+                }
             }
             return true;
 
         }
 
+    }
+
+    hit(damage) {
+        this.hp -= damage;
+        if (this.hp <= 0) {
+            this.die();
+        }
+    }
+    die() {
+        this.dead = true;
+        this.tile.monster = null;
+        this.sprite = 1;
     }
 
     move(tile) {
@@ -70,7 +99,15 @@ class Player extends Monster {
 
 class Snake extends Monster {
     constructor(tile) {
-        super(tile, 4, 2)
+        super(tile, 4, 1)
+    }
+    doStuff() {
+        this.attackedThisTurn = false;
+        super.doStuff();
+
+        if (!this.attackedThisTurn) {
+            super.doStuff();
+        }
     }
 
 }
@@ -85,10 +122,24 @@ class Cactus extends Monster {
         super(tile, 6, 2)
     }
 
+    update() {
+        let startedStunned = this.stunned;
+        super.update();
+        if (!startedStunned) {
+            this.stunned = true;
+        }
+    }
+
 }
 class PantsMan extends Monster {
     constructor(tile) {
         super(tile, 7, 4)
+    }
+    doStuff() {
+        let neighbors = this.tile.getAdjacentPassableNeighbors();
+        if (neighbors.length) {
+            this.tryMove(neighbors[0].x - this.tile.x, neighbors[0].y - this.tile.y)
+        }
     }
 
 }
@@ -100,7 +151,17 @@ class Slime extends Monster {
 }
 class Maw extends Monster {
     constructor(tile) {
-        super(tile, 9, 5)
+        super(tile, 9, 3)
+    }
+
+    doStuff() {
+        let neighbors = this.tile.getAdjacentNeighbors().filter(t => !t.passable && inBounds(t.x, t.y));
+        if (neighbors.length) {
+            neighbors[0].replace(Floor);
+            this.heal(0.5);
+        } else {
+            super.doStuff();
+        }
     }
 
 }
