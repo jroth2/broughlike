@@ -53,3 +53,12 @@ function draw() {
 
 }
 
+function tick() {
+    for (let k = monsters.length - 1; k >= 0; k--) {
+        if (!monster[k].dead) {
+            monsters[k].update();
+        } else {
+            monsters.splice(k, 1)
+        }
+    }
+}

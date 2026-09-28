@@ -4,6 +4,22 @@ class Monster {
         this.sprite = sprite;
         this.hp = hp;
     }
+
+    update() {
+        this.doStuff();
+    }
+
+    doStuff() {
+        let neighbors = this.tile.getAdjacentPassableNeighbors();
+        neighbors = neighbors.filter(t => !t.monster || t.monster.isPlayer);
+
+        if (neighbors.length) {
+            neighbors.sort((a, b) => a.dis(player.tile) - b.dis(player.tile));
+            let newTile = neighbors[0];
+            this.tryMove(newTile.x - this.tile.x, newTile.y - this.tile.y)
+        }
+    }
+
     draw() {
         drawSprite(this.sprite, this.tile.x, this.tile.y);
     }

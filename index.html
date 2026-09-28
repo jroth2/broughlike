@@ -23,7 +23,6 @@
         level = 1;
 
         htmltag.addEventListener('keyup', function (e) {
-            console.log(e.key)
             if (e.key == "w") player.tryMove(0, -1);
             if (e.key == "s") player.tryMove(0, 1);
             if (e.key == "a") player.tryMove(-1, 0);
