@@ -2,6 +2,7 @@ function generateLevel() {
     util.tryTo('generate_map', function () {
         return generateTiles() == randomPassableTile().getConnectedTiles().length;
     });
+    generateMonsters();
 }
 
 function generateTiles() {
@@ -45,3 +46,15 @@ function randomPassableTile() {
     return tile;
 }
 
+function generateMonsters() {
+    monsters = [];
+    let numMonsters = level + 1;
+    for (let i = 0; i < numMonsters; i++) {
+        spawnMonster();
+    }
+}
+function spawnMonster() {
+    let monsterType = util.shuffle([Snake, Bandito, Cactus, PantsMan, Slime, Maw])[0];
+    let monster = new monsterType(randomPassableTile());
+    monsters.push(monster);
+}

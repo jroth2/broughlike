@@ -9,10 +9,14 @@ class Monster {
     }
     tryMove(dx, dy) {
         let newTile = this.tile.getNeighbor(dx, dy);
-        if (!newTile.monster) {
-            this.move(newTile);
+        if (newTile.passable) {
+            if (!newTile.monster) {
+                this.move(newTile);
+            }
+            return true;
+
         }
-        return true;
+
     }
 
     move(tile) {
@@ -30,3 +34,39 @@ class Player extends Monster {
     }
 }
 
+class Snake extends Monster {
+    constructor(tile) {
+        super(tile, 4, 2)
+    }
+
+}
+class Bandito extends Monster {
+    constructor(tile) {
+        super(tile, 5, 3)
+    }
+
+}
+class Cactus extends Monster {
+    constructor(tile) {
+        super(tile, 6, 2)
+    }
+
+}
+class PantsMan extends Monster {
+    constructor(tile) {
+        super(tile, 7, 4)
+    }
+
+}
+class Slime extends Monster {
+    constructor(tile) {
+        super(tile, 8, 1)
+    }
+
+}
+class Maw extends Monster {
+    constructor(tile) {
+        super(tile, 9, 5)
+    }
+
+}

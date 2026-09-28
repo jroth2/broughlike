@@ -18,10 +18,17 @@
     <script src="js/spell.js"></script>
     <script>
         tileSize = 64;
-        numTiles = 9;
+        numTiles = 12;
         uiWidth = 4;
+        level = 1;
 
-        x = y = 0;
+        htmltag.addEventListener('keyup', function (e) {
+            console.log(e.key)
+            if (e.key == "w") player.tryMove(0, -1);
+            if (e.key == "s") player.tryMove(0, 1);
+            if (e.key == "a") player.tryMove(-1, 0);
+            if (e.key == "d") player.tryMove(1, 0);
+        });
 
         spritesheet = new Image()
         spritesheet.src = 'spritesheet.png'
@@ -33,9 +40,12 @@
         setupCanvas();
         generateLevel();
 
-        startingTile = randomPassableTile();
-        x = startingTile.x;
-        y = startingTile.y;
+
+
+
+        player = new Player(randomPassableTile());
+
+
     </script>
 
 

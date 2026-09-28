@@ -1,13 +1,7 @@
 
 const htmltag = document.querySelector("html");
 
-htmltag.addEventListener('keyup', function (e) {
-    console.log(e.key)
-    if (e.key == "w") y--;
-    if (e.key == "s") y++;
-    if (e.key == "a") x--;
-    if (e.key == "d") x++;
-});
+
 
 
 
@@ -51,7 +45,11 @@ function draw() {
 
     // draws character square
     //ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
-    drawSprite(0, x, y);
+    player.draw();
+
+    for (const monster of monsters) {
+        monster.draw();
+    }
 
 }
 
