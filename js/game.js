@@ -47,7 +47,7 @@ function draw() {
     //ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
     player.draw();
 
-    for (const monster of monsters) {
+    for (monster of monsters) {
         monster.draw();
     }
 
@@ -55,7 +55,8 @@ function draw() {
 
 function tick() {
     for (let k = monsters.length - 1; k >= 0; k--) {
-        if (!monster[k].dead) {
+        console.log(monsters[k])
+        if (!monsters[k].dead) {
             monsters[k].update();
         } else {
             monsters.splice(k, 1)
