@@ -157,6 +157,16 @@ class Slime extends Monster {
     constructor(tile) {
         super(tile, 8, 1)
     }
+    die() {
+        let neighbors = this.tile.getAdjacentPassableNeighbors();
+        neighbors = neighbors.filter(t => t.monster && t.monster.isPlayer);
+        if (neighbors) {
+            if (neighbors[0].monster.isPlayer) {
+                neighbors[0].monster.heal(1)
+            }
+        }
+        super.die();
+    }
 
 }
 class Maw extends Monster {
