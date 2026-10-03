@@ -161,7 +161,7 @@ class Slime extends Monster {
 }
 class Maw extends Monster {
     constructor(tile) {
-        super(tile, 9, 3)
+        super(tile, 9, 2)
     }
 
     doStuff() {

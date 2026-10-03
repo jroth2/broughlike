@@ -78,7 +78,7 @@ class Exit extends Tile {
                 showTitle();
             } else {
                 level++;
-                startLevel(Math.min(monster.maxHp, Player.hp + 1))
+                startLevel(Math.min(monster.maxHp, player.hp + 1))
             }
         }
     }

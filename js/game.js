@@ -43,15 +43,17 @@ function draw() {
                 getTile(i, j).draw();
             }
         }
-
-        // draws character square
-        //ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
-        player.draw();
-
         for (monster of monsters) {
             monster.draw();
         }
+        // draws character square
+        //ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+        player.draw();
+        drawText("Level: " + level, 30, false, 40, "violet")
+
+
     }
+
 
 }
 
@@ -81,6 +83,9 @@ function showTitle() {
     ctx.fillStyle = 'rgba(0,0,0,0.75)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     gameState = "title";
+
+    drawText("COWBOY CAVE", 40, true, canvas.height / 2 - 110, "white")
+    drawText("a \"brough-like\"[BRUFF] rogue-lite game", 20, true, canvas.height / 2 - 70, "white")
 }
 
 function startGame() {
@@ -100,4 +105,17 @@ function startLevel(playerHp) {
     randomPassableTile().replace(Exit);
 
 
+}
+
+function drawText(text, size, centered, textY, color) {
+    ctx.fillStyle = color;
+    ctx.font = size + "px monospace";
+    let textX;
+    if (centered) {
+        textX = (canvas.width - ctx.measureText(text).width) / 2;
+    } else {
+        textX = canvas.width - uiWidth * tileSize + 25;
+    }
+
+    ctx.fillText(text, textX, textY);
 }
