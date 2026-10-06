@@ -50,6 +50,7 @@ function draw() {
         //ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
         player.draw();
         drawText("Level: " + level, 30, false, 40, "violet")
+        drawText("Score: " + score, 30, false, 70, "violet")
 
 
     }
@@ -90,6 +91,7 @@ function showTitle() {
 
 function startGame() {
     level = 1;
+    score = 0;
     startLevel(startingHp);
     gameState = "running";
 }
