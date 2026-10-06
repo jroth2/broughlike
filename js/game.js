@@ -60,7 +60,6 @@ function draw() {
 
 function tick() {
     for (let k = monsters.length - 1; k >= 0; k--) {
-        console.log(monsters[k])
         if (!monsters[k].dead) {
             monsters[k].update();
         } else {
