@@ -20,6 +20,18 @@ const util = {
             arr[r] = temp;
         }
         return arr;
+    },
+
+    rightPad(textArray) {
+        let finalText = "";
+        textArray.forEach(text => {
+            text += "";
+            for (let i = text.length; i < 10; i++) {
+                text += " ";
+            }
+            finalText += text;
+        });
+        return finalText;
     }
 
 }
