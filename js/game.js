@@ -166,7 +166,7 @@ function drawScores() {
         });
         scores.unshift(newestScore);
 
-        for (let i = 0; Math.min(10, scores.length); i++) {
+        for (let i = 0; i < Math.min(10, scores.length); i++) {
             let scoreText = util.rightPad([scores[i].run, scores[i].score, scores[i].totalScore]);
             drawText(
                 scoreText,
