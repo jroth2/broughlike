@@ -4,6 +4,7 @@ class Monster {
         this.sprite = sprite;
         this.hp = hp;
         this.maxHp = 6;
+        this.isPlayer = false;
 
         this.teleportCounter = 2;
         this.offsetX = 0;
@@ -13,6 +14,7 @@ class Monster {
     update() {
         this.teleportCounter--;
         if (this.stunned || this.teleportCounter > 0) {
+            this.drawStatus();
             this.stunned = false;
             return;
         }
@@ -43,12 +45,16 @@ class Monster {
     }
 
     draw() {
+        //what to draw when monster spawning in
         if (this.teleportCounter > 0) {
             drawSprite(11, this.getDisplayX(), this.getDisplayY())
+            //what to draw on normal turn
         } else {
             drawSprite(this.sprite, this.getDisplayX(), this.getDisplayY());
             this.drawHp();
+
         }
+        //reduces offset gradually for animations
         this.offsetX -= Math.sign(this.offsetX) * (1 / 8);
         this.offsetY -= Math.sign(this.offsetY) * (1 / 8);
     }
@@ -60,6 +66,16 @@ class Monster {
                 this.getDisplayX() + (i % 3) * (5 / 16),
                 this.getDisplayY() - Math.floor(i / 3) * (5 / 16)
             );
+        }
+    }
+
+    drawStatus() {
+        if (this.stunned && !this.isPlayer) {
+            drawSprite(
+                15,
+                this.getDisplayX(),
+                this.getDisplayY()
+            )
         }
     }
 
