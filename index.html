@@ -46,6 +46,8 @@
                 if (e.key.toLowerCase() == "s") player.tryMove(0, 1);
                 if (e.key.toLowerCase() == "a") player.tryMove(-1, 0);
                 if (e.key.toLowerCase() == "d") player.tryMove(1, 0);
+
+                if (e.key >= 1 && e.key <= 9) player.castSpell(e.key - 1) && console.log(e.key)
             }
         });
 

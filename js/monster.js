@@ -108,10 +108,10 @@ class Monster {
         if (this.hp <= 0) {
             this.die();
         }
-        if (this.player) {
-            playSound("hit1");
-        } else {
+        if (this.isPlayer) {
             playSound("hit2");
+        } else {
+            playSound("hit1");
         }
     }
     die() {
@@ -136,10 +136,25 @@ class Player extends Monster {
         super(tile, 0, 3);
         this.isPlayer = true;
         this.teleportCounter = 0;
+        this.spells = util.shuffle(Object.keys(spells)).splice(0, numSpells);
     }
 
     tryMove(dx, dy) {
         if (super.tryMove(dx, dy)) {
+            tick();
+        }
+    }
+
+    addSpell() {
+        let newSpell = util.shuffle(Object.keys(spells))[0];
+        this.spells.push(newSpell);
+    }
+    castSpell(index) {
+        let spellName = this.spells[index];
+        if (spellName) {
+            delete this.spells[index];
+            spells[spellName]();
+            playSound("spell");
             tick();
         }
     }

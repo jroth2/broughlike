@@ -64,6 +64,10 @@ class Floor extends Tile {
         //TODO: complete
         if (monster.isPlayer && this.treasure) {
             score++;
+            if (score % 3 == 0 && numSpells < 9) {
+                numSpells++;
+                player.addSpell();
+            }
             playSound("treasure");
             this.treasure = false;
             spawnMonster();
