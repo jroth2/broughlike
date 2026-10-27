@@ -1,3 +1,5 @@
 favicon.aseprite
 favicon.ico
 favicon.png
+private/
+*.DS_Store*
